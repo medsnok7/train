@@ -1,0 +1,47 @@
+class String {
+    public:
+        String()=default;
+        String(const char* ch){
+            std::cout<<"created!"<<std::endl;
+            t_size=strlen(ch);
+            t_data=new char[t_size];
+            memcpy(t_data,ch,t_size);
+        }
+        String(String& other){
+            std::cout<<"copied!"<<std::endl;
+            t_size=other.t_size;
+            t_data=new char[t_size];
+            memcpy(t_data,other.t_data,t_size);
+        }
+        String(String&& other) noexcept :t_size(other.t_size),t_data(other.t_data) {
+            std::cout<<"moved!"<<std::endl;
+            other.t_data=nullptr;
+            other.t_size=0;
+        }
+        void print(){
+            for(size_t i{};i<t_size;i++)
+                std::cout<<t_data[i];
+            std::cout<<std::endl;
+        }
+        private:
+            size_t t_size;
+            char* t_data;
+};
+class Entity{
+    public:
+        Entity()=default;
+        Entity( String& name):name_(name){}
+        Entity( String&& name):name_(static_cast<String&&>(name)){
+        }
+        void printf(){
+            name_.print();
+        }
+    private:
+        String name_;
+};
+
+int main(){
+    Entity e("hello");
+    e.printf();
+    return 0;
+}
