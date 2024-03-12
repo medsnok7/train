@@ -24,6 +24,7 @@ class String {
             std::cout<<std::endl;
         }
         private:
+            size_t t_size1;
             size_t t_size;
             char* t_data;
 };
