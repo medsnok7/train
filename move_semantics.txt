@@ -42,6 +42,7 @@ class Entity{
 
 int main(){
     Entity e("hello");
+    Entity e1("hello");    
     e.printf();
     return 0;
 }
